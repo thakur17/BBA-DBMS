@@ -1,0 +1,104 @@
+First, we create a database called College (This should be done once) using the following SQL DDL command.
+
+CREATE DATABASE College
+
+After creating the database named College, we need to connect to this database using following command.
+
+USE College
+
+Now, we are going to create five related tables, using the following script (create one table at a time).
+
+CREATE TABLE Student (
+    Sid int primary key,
+    Sname nvarchar(40),
+    Level nvarchar(15),
+    Age numeric(5,2),
+    Gender nvarchar(10)
+)
+
+
+create table Course (
+Cid int primary key,
+Cname nvarchar(40),
+Credit_hr int
+)
+
+create table Teacher (
+Tid int primary key,
+Tname nvarchar(40),
+Age numeric(5,2)
+)
+
+create table Enrolled_by (
+Sid int,
+Cid int,
+CONSTRAINT FK_Student FOREIGN KEY 
+	(Sid) REFERENCES Student(Sid),
+CONSTRAINT FK_Course FOREIGN KEY 
+	(Cid) REFERENCES Course(Cid)
+)
+
+(This table links the rows of Student and Course tables via foreign key contraints, implementing many-to-many relations with one to many)
+
+create table Taught_by (
+Tid int,
+Cid int,
+CONSTRAINT FK_Teacher FOREIGN KEY 
+	(Tid) REFERENCES Teacher (Tid),
+CONSTRAINT FK_Course_Teacher FOREIGN KEY 
+	(Cid) REFERENCES Course(Cid)
+)
+
+(This table links the rows of Teacher and Course tables via foreign key contraintsimplementing many-to-many relations with one to many)
+
+Now, use inser into command to enter some sample data in each table as below. (You can use right click on the table name and open table option if you wish).
+
+insert into Student Values (101, 'Ram Prasad', 'Under graduate', 17, 'Male')
+insert into Student Values (102, 'Babita Kumari', 'Under graduate', 18, 'Female')
+insert into Student Values (103, 'Cathy Rime', 'Graduate', 20, 'Female')
+insert into Student Values (104, 'Sita Pant', 'Graduate', 22, 'Female')
+insert into Student Values (105, 'Gita Devi', 'Under graduate', 16, 'Female')
+insert into Student Values (106, 'Hari Prasad', 'Graduate', 22, 'Male')
+insert into Student Values (107, 'Suresh Tamang', 'Under graduate', 15, 'Male')
+insert into Student Values (108, 'Jayanti Kumari', 'Graduate', 26, 'Female')
+
+
+insert into Course Values (101, 'Database Management', 3);
+insert into Course Values (102, 'Accounting', 4);
+insert into Course Values (103, 'Finance', 2);
+insert into Course Values (104, 'English', 4);
+insert into Course Values (105, 'Management', 3);
+insert into Course Values (106, 'Organization Behaviour', 6);
+
+
+insert into Teacher Values (1, 'Thakur Upadhyay', 52);
+insert into Teacher Values (2, 'Hari Adhikari', 44);
+insert into Teacher Values (3, 'Sonam Lama', 33);
+insert into Teacher Values (4, 'Sita Kumari', 26);
+insert into Teacher Values (5, 'Gita Devi', 29);
+
+
+insert into Enrolled_by Values (101, 101);
+insert into Enrolled_by Values (101, 102);
+insert into Enrolled_by Values (101, 103);
+insert into Enrolled_by Values (101, 104);
+insert into Enrolled_by Values (102, 101);
+insert into Enrolled_by Values (102, 102);
+insert into Enrolled_by Values (102, 106);
+insert into Enrolled_by Values (103, 102);
+insert into Enrolled_by Values (103, 104);
+insert into Enrolled_by Values (103, 101);
+insert into Enrolled_by Values (105, 104);
+insert into Enrolled_by Values (105, 101);
+
+
+insert into Taught_by Values (1, 101)
+insert into Taught_by Values (2, 106)
+insert into Taught_by Values (2, 102)
+insert into Taught_by Values (2, 104)
+insert into Taught_by Values (3, 105)
+insert into Taught_by Values (3, 104)
+insert into Taught_by Values (4, 106)
+
+After inserting all these rows in the respective tables, we can use multiple queries to get the required information from the database. See the book's example
+play around many permutation combinations of Select queries.
